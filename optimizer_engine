@@ -1,0 +1,56 @@
+"""
+optimizer_engine.py
+C Code Optimizer — Backward-Compatible Wrapper
+
+This file now delegates to the modular `optimizer/` package.
+All existing imports continue to work:
+    from optimizer_engine import run_optimizer
+    from optimizer_engine import constant_folding, dead_code_elimination, ...
+
+For new code, prefer importing directly from the package:
+    from optimizer import run_optimizer
+    from optimizer.constant_folding import constant_folding
+"""
+
+# ══════════════════════════════════════════════════════
+#  RE-EXPORTS from optimizer package
+# ══════════════════════════════════════════════════════
+
+# Core orchestrator
+from optimizer.ast_engine import run_ast_optimizer as run_optimizer
+
+# Expression evaluator
+from optimizer.expression_evaluator import (
+    TokenType,
+    Token,
+    ExpressionEvaluator,
+)
+
+# Constant Folding
+from optimizer.constant_folding import constant_folding
+
+# Dead Code Elimination
+from optimizer.dead_code_elimination import (
+    Block,
+    ScopeAnalyzer,
+    find_unreachable_code,
+    find_unused_variables,
+    find_overwritten_values,
+    find_always_false_conditions,
+    dead_code_elimination,
+)
+
+# Loop Optimization
+from optimizer.loop_optimization import (
+    LoopAnalyzer,
+    loop_optimization,
+    find_strength_reduction,
+    find_loop_unrolling,
+)
+
+# Shared Utilities
+from optimizer.utils import (
+    find_block_end,
+    is_variable_read,
+    evaluate_condition,
+)
